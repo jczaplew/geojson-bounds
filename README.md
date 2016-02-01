@@ -53,13 +53,13 @@ Returns a GeoJSON `Feature` polygon that repesents the bounding box of the provi
 ### .xMin(*geojson*)
 Returns the western-most longitude of the provided feature or geometry.
 
-## .xMax(*geojson*)
+### .xMax(*geojson*)
 Returns the eastern-most longitude of the provided feature or geometry.
 
-## .yMin(*geojson*)
+### .yMin(*geojson*)
 Returns the southern-most latitude of the provided feature or geometry.
 
-## .yMax(*geojson*)
+### .yMax(*geojson*)
 Returns the northern-most latitude of the provided feature or geometry.
 
 
