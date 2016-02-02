@@ -1,6 +1,6 @@
 {
   "name": "geojson-bounds",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Extent, envelope, xMin/Max, and yMin/Max for GeoJSON",
   "main": "index.js",
   "directories": {

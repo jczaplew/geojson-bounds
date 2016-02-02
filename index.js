@@ -66,6 +66,48 @@
     ]
   }
 
+  // Adapted from http://stackoverflow.com/questions/2792443/finding-the-centroid-of-a-polygon
+  function fetchCentroid(vertices) {
+    var centroid = {
+      x: 0,
+      y: 0
+    }
+    
+    var signedArea = 0;
+    var x0 = 0;
+    var y0 = 0;
+    var x1 = 0;
+    var y1 = 0;
+    var a = 0;
+
+    for (var i = 0; i < vertices.length - 1; i++) {
+      x0 = vertices[i][0];
+      y0 = vertices[i][1];
+      x1 = vertices[i + 1][0];
+      y1 = vertices[i + 1][1];
+      a = (x0 * y1) - (x1 * y0);
+
+      signedArea += a;
+      centroid.x += (x0 + x1) * a;
+      centroid.y += (y0 + y1) * a;
+    }
+
+    x0 = vertices[vertices.length - 1][0];
+    y0 = vertices[vertices.length - 1][1];
+    x1 = vertices[0][0];
+    y1 = vertices[0][1];
+    a = (x0 * y1) - (x1 * y0);
+    signedArea += a;
+    centroid.x += (x0 + x1) * a;
+    centroid.y += (y0 + y1) * a;
+
+    signedArea = signedArea * 0.5;
+    centroid.x = centroid.x / (6.0*signedArea);
+    centroid.y = centroid.y / (6.0*signedArea);
+
+    return [centroid.x, centroid.y];
+  }
+
   function feature(obj) {
     return flatten(obj.geometry.coordinates);
   }
@@ -110,6 +152,10 @@
     return fetchExtent(process(t));
   }
 
+  function centroid(t) {
+    return fetchCentroid(process(t));
+  }
+
   function xMin(t) {
     return minLng(process(t));
   }
@@ -126,6 +172,7 @@
   module.exports = {
     "envelope": envelope,
     "extent": extent,
+    "centroid": centroid,
     "xMin": xMin,
     "xMax": xMax,
     "yMin": yMin,
