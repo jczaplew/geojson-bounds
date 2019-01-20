@@ -1,6 +1,6 @@
 var assert = require("assert");
 var should = require("should");
-var geojsonhint = require("geojsonhint");
+var geojsonhint = require("@mapbox/geojsonhint");
 var st = require("../index");
 var shapes = require("./shapes");
 
