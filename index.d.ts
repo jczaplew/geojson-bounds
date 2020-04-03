@@ -5,7 +5,7 @@ declare module 'geojson-bounds' {
 	/**
  	* Returns an array of coordinates in the order [West, South, East, North] that represents the extent of the provided feature or geometry
  	*/
-	export function extent(geojson: geojson.GeoJSON): Array<number>;
+	export function extent(geojson: geojson.GeoJSON): [number, number, number, number];
 
 	/**
  	* Returns a GeoJSON Feature polygon that repesents the bounding box of the provided feature or geometry
