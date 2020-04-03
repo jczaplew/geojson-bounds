@@ -7,6 +7,7 @@
     "test": "test"
   },
   "dependencies": {
+    "@types/geojson": "^7946.0.7"
   },
   "devDependencies": {
     "@mapbox/geojsonhint": "^1.2.1",
