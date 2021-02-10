@@ -109,7 +109,14 @@
   }
 
   function feature(obj) {
-    return flatten(obj.geometry.coordinates);
+    switch (obj.geometry.type) {
+      case "GeometryCollection":
+        return geometryCollection(obj.geometry)
+      case "FeatureCollection":
+        return featureCollection(obj.geometry)
+      default:
+        return flatten(obj.geometry.coordinates)
+    }
   }
 
   function featureCollection(f) {

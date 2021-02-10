@@ -149,7 +149,7 @@ exports.multilinestring = { "type": "MultiLineString",
       ]
     }
 
-exports.featureCollection = {
+const featureCollection = {
   "type": "FeatureCollection",
   "features": [
     {
@@ -268,8 +268,10 @@ exports.featureCollection = {
     }
   ]
 };
+exports.featureCollection = featureCollection
 
-exports.geometryCollection = { "type": "GeometryCollection",
+
+const geometryCollection = { "type": "GeometryCollection",
     "geometries": [
       { "type": "Point",
         "coordinates": [45.703125, 56.559482483762245]
@@ -300,6 +302,19 @@ exports.geometryCollection = { "type": "GeometryCollection",
       }
     ]
   };
+exports.geometryCollection = geometryCollection
+
+exports.nestedFeatureCollection = {
+        "type": "Feature",
+        "properties": {},
+        "geometry": featureCollection
+}
+
+exports.nestedGeometryCollection = {
+        "type": "Feature",
+        "properties": {},
+        "geometry": geometryCollection
+}
 
 //exports.baddy_nogeom = { type: "FeatureCollection", features: [ { type: "Feature", geometry: null, properties: {} } ] }
 exports.baddy_null = null;
