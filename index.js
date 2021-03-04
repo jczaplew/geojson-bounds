@@ -18,19 +18,49 @@
   };
 
   function maxLat(coords) {
-    return Math.max.apply(null, coords.map(function(d) { return d[1]; }));
+    // fix JavaScript engine's argument length limit. 
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/apply
+    let max = -Infinity;
+    let QUANTUM = 32768;
+    for (let i = 0, len = coords.length; i < len; i += QUANTUM) {
+        let sliceCoords = coords.slice(i, Math.min(i + QUANTUM, len));
+        let submax = Math.max.apply(null, sliceCoords.map(function (d) { return d[1]; }));
+        max = Math.max(submax, max);
+    }
+    return max;
   }
 
   function maxLng(coords) {
-    return Math.max.apply(null, coords.map(function(d) { return d[0]; }));
+    let max = -Infinity;
+    let QUANTUM = 32768;
+    for (let i = 0, len = coords.length; i < len; i += QUANTUM) {
+        let sliceCoords = coords.slice(i, Math.min(i + QUANTUM, len));
+        let submax = Math.max.apply(null, sliceCoords.map(function (d) { return d[0]; }));
+        max = Math.max(submax, max);
+    }
+    return max;
   }
 
   function minLat(coords) {
-    return Math.min.apply(null, coords.map(function(d) { return d[1]; }));
+    let min = Infinity;
+    let QUANTUM = 32768;
+    for (let i = 0, len = coords.length; i < len; i += QUANTUM) {
+        let sliceCoords = coords.slice(i, Math.min(i + QUANTUM, len));
+        let submin = Math.min.apply(null, sliceCoords.map(function (d) { return d[1]; }));
+        min = Math.min(submin, min);
+    }
+    return min;
   }
 
   function minLng(coords) {
-    return Math.min.apply(null, coords.map(function(d) { return d[0]; }));
+    let min = Infinity;
+    let QUANTUM = 32768;
+    for (let i = 0, len = coords.length; i < len; i += QUANTUM) {
+        let sliceCoords = coords.slice(i, Math.min(i + QUANTUM, len));
+        let submin = Math.min.apply(null, sliceCoords.map(function (d) { return d[0]; }));
+        min = Math.min(submin, min);
+    }
+    return min;
   }
 
   function fetchEnvelope(coords) {
