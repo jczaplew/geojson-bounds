@@ -17,20 +17,55 @@
     return (Array.isArray(output[0])) ? output : [output];
   };
 
+  // Different JavaScript engines have a different maximum number of arguments
+  // that can be passed to a function. Since the native Math.min and Math.max
+  // accept a list of arguments we can hit a maxium call stack size with large features 
+  function chunkArray(array, maxLength = 32000) {
+    const output = []
+    for (let i = 0; i < array.length; i += maxLength) {
+      output.push(
+        array.slice(i, i + maxLength)
+      )
+    }
+    return output
+  }
+
+  function minOfArrayOfArrays(array) {
+    return Math.min.apply(
+      null,
+      array.map(subArray => Math.min.apply(null, subArray))
+    )
+  }
+
+  function maxOfArrayOfArrays(array) {
+    return Math.max.apply(
+      null,
+      array.map(subArray => Math.max.apply(null, subArray))
+    )
+  }
+
   function maxLat(coords) {
-    return Math.max.apply(null, coords.map(function(d) { return d[1]; }));
+    return maxOfArrayOfArrays(
+      chunkArray(coords.map(function(d) { return d[1]; }))
+    )
   }
 
   function maxLng(coords) {
-    return Math.max.apply(null, coords.map(function(d) { return d[0]; }));
+    return maxOfArrayOfArrays(
+      chunkArray(coords.map(function(d) { return d[0]; }))
+    )
   }
 
   function minLat(coords) {
-    return Math.min.apply(null, coords.map(function(d) { return d[1]; }));
+    return minOfArrayOfArrays(
+      chunkArray(coords.map(function(d) { return d[1]; }))
+    )
   }
 
   function minLng(coords) {
-    return Math.min.apply(null, coords.map(function(d) { return d[0]; }));
+    return minOfArrayOfArrays(
+      chunkArray(coords.map(function(d) { return d[0]; }))
+    )
   }
 
   function fetchEnvelope(coords) {
