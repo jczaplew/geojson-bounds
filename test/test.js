@@ -82,3 +82,24 @@ geometries.forEach(function(shape) {
     });
   });
 });
+
+it('handles very large polygons', function(done) {
+  const polygon = {...shapes.polygon, coordinates: [generateRandomVertices(10000000)]}
+  var result = st.xMax(polygon)
+  done()
+})
+
+
+function generateRandomVertices(num) {
+  const output = []
+  for (let i = 0; i <= num; i++) {
+    output.push([
+      randomInteger(-180, 180), randomInteger(-90, 90)
+    ])
+  }
+  return output
+}
+
+function randomInteger(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
