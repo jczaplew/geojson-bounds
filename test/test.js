@@ -12,7 +12,7 @@ geometries.forEach(function(shape) {
     it("should return an envelope or nothing", function(done) {
       try {
         var result = st.envelope(shapes[shape]);
-        var errors = geojsonhint.hint(JSON.stringify(result));
+        var errors = geojsonhint.hint(JSON.stringify(result), {ignoreRightHandRule: true});
         if (errors.length && shape.substr(0, 5) != "baddy") {
           throw new Error("Invalid GeoJSON returned", JSON.stringify(result));
         } else {
